@@ -13,7 +13,12 @@
 CLASS *metrics_collector_writer::oclass = NULL;
 
 void new_metrics_collector_writer(MODULE *mod) {
-	new metrics_collector_writer(mod);
+	// The pointer is not being saved here so that's another potential memory leak scenario
+	// Similar to the other ones, we can fix it by storing the pointer
+	metrics_collector_writer *obj = new metrics_collector_writer(mod);
+	
+	// now the pointer is registered in the core, we can remove it and the system will handle it for us?
+	delete obj;
 }
 
 metrics_collector_writer::metrics_collector_writer(MODULE *mod) {

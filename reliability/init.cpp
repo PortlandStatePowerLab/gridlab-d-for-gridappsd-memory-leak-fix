@@ -29,8 +29,13 @@ EXPORT CLASS *init(CALLBACKS *fntable, MODULE *module, int argc, char *argv[])
 	gl_global_create("reliability::report_event_log",PT_bool,&metrics::report_event_log,PT_DESCRIPTION,"Should the metrics object dump a logfile?",NULL);
 	gl_global_create("reliability::deltamode_timestep", PT_double, &deltamode_timestep_publish,PT_UNITS,"ns",PT_DESCRIPTION,"Desired minimum timestep for deltamode-related simulations",NULL);
 
-	new metrics(module);
-	new eventgen(module);
+	// similar as before, create objects, constructor registers them, we delete them once registered.
+
+	metrics *metrics_obj = new metrics(module);
+	eventgen *eventgen_obj = new eventgen(module);
+
+	delete metrics_obj;
+	delete eventgen_obj;
 
 	/* always return the first class registered */
 	return metrics::oclass;

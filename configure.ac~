@@ -28,10 +28,10 @@ m4_define([pkgversion], sbuild_m4_esyscmd_s([build-aux/version.sh --version]))
 m4_define([pkgbranch],  sbuild_m4_esyscmd_s([build-aux/version.sh --branch]))
 m4_define([svnversion], sbuild_m4_esyscmd_s([build-aux/version.sh --svn]))
 
-AC_PREREQ([2.71])
-AC_INIT([GridLAB-D],[pkgversion],[gridlabd@pnnl.gov],[gridlabd])
+AC_PREREQ([2.63])
+AC_INIT([GridLAB-D], pkgversion, [gridlabd@pnnl.gov], [gridlabd])
 AC_CONFIG_SRCDIR([gldcore/aggregate.c])
-AC_CONFIG_HEADERS([gldcore/config.h])
+AC_CONFIG_HEADER([gldcore/config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 
@@ -128,7 +128,7 @@ AC_MSG_NOTICE([C compiler])
 AC_MSG_NOTICE
 
 AC_PROG_CC
-AC_USE_SYSTEM_EXTENSIONS   # defines _GNU_SOURCE
+AC_GNU_SOURCE   # defines _GNU_SOURCE
 AM_PROG_CC_C_O  # required for automake to support subdir-objects
 
 AS_IF([test "x$debug" = "true"], [GLD_CFLAGS="$GLD_CFLAGS -g"])
@@ -248,15 +248,7 @@ AC_C_CONST
 AC_C_INLINE
 AC_C_RESTRICT
 AC_HEADER_STDBOOL
-m4_warn([obsolete],
-[The preprocessor macro `STDC_HEADERS' is obsolete.
-  Except in unusual embedded environments, you can safely include all
-  ISO C90 headers unconditionally.])dnl
-# Autoupdate added the next two lines to ensure that your configure
-# script's behavior did not change.  They are probably safe to remove.
-AC_CHECK_INCLUDES_DEFAULT
-AC_PROG_EGREP
-
+AC_HEADER_STDC
 AC_STRUCT_TM
 AC_TYPE_INT8_T
 AC_TYPE_INT16_T
